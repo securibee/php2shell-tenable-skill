@@ -1,0 +1,647 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PHP2Shell action plan",
+  "description": "Ranked, owner-tagged handoff file written by render.py as action-plan.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "skill_version",
+    "vulnerability",
+    "sources",
+    "coverage",
+    "items",
+    "verify_first"
+  ],
+  "properties": {
+    "schema_version": {
+      "enum": [
+        "1.0"
+      ]
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "skill_version": {
+      "type": "string"
+    },
+    "vulnerability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cves",
+        "fixed",
+        "exploitation_since",
+        "faq_url",
+        "interim_mitigations"
+      ],
+      "properties": {
+        "cves": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fixed": {
+          "type": "object",
+          "description": "PHP branch to first fixed release",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "exploitation_since": {
+          "type": "string"
+        },
+        "faq_url": {
+          "type": "string"
+        },
+        "interim_mitigations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cvss": {
+          "type": [
+            "number",
+            "string"
+          ]
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "cve",
+          "url",
+          "fetched_at",
+          "status",
+          "error"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "tenable-hexa, tenable-faq, osv, redhat, alpine, ..."
+          },
+          "cve": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "fetched_at": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "failed",
+              "skipped"
+            ]
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "description": "A data source and whether it was read."
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "by_credential_state",
+        "by_verdict",
+        "by_owner_source",
+        "unassigned_actionable",
+        "output_truncated_assets"
+      ],
+      "properties": {
+        "by_credential_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "credentialed",
+            "not-credentialed",
+            "failed",
+            "not-applicable"
+          ],
+          "properties": {
+            "credentialed": {
+              "type": "integer"
+            },
+            "not-credentialed": {
+              "type": "integer"
+            },
+            "failed": {
+              "type": "integer"
+            },
+            "not-applicable": {
+              "type": "integer"
+            }
+          }
+        },
+        "by_verdict": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vulnerable",
+            "no-vendor-fix",
+            "no-stream-fix",
+            "backport-only",
+            "eol",
+            "patched",
+            "likely-patched",
+            "not-affected",
+            "conflict",
+            "unverified-credentials",
+            "unverified-no-data"
+          ],
+          "properties": {
+            "vulnerable": {
+              "type": "integer"
+            },
+            "no-vendor-fix": {
+              "type": "integer"
+            },
+            "no-stream-fix": {
+              "type": "integer"
+            },
+            "backport-only": {
+              "type": "integer"
+            },
+            "eol": {
+              "type": "integer"
+            },
+            "patched": {
+              "type": "integer"
+            },
+            "likely-patched": {
+              "type": "integer"
+            },
+            "not-affected": {
+              "type": "integer"
+            },
+            "conflict": {
+              "type": "integer"
+            },
+            "unverified-credentials": {
+              "type": "integer"
+            },
+            "unverified-no-data": {
+              "type": "integer"
+            }
+          }
+        },
+        "by_owner_source": {
+          "type": "object",
+          "description": "Keys are owner-file, unassigned and tag:<Category>.",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "unassigned_actionable": {
+          "type": "integer"
+        },
+        "output_truncated_assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Counts of PHP hosts. by_verdict uses each host's headline verdict (worst install). output_truncated_assets lists hosts whose plugin output, as the skill read it, ends with the truncation marker, so more installs may exist."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "asset_id",
+          "hostname",
+          "fqdn",
+          "ip",
+          "url",
+          "owner",
+          "owner_source",
+          "bucket",
+          "rank",
+          "reason",
+          "compromise_note",
+          "action",
+          "fix_target",
+          "php_installs",
+          "flags",
+          "interim_mitigations",
+          "verification",
+          "context"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The plan's identity for the asset: Tenable asset ID, else name|ip, else URL. Unique within a plan."
+          },
+          "asset_id": {
+            "type": "string",
+            "description": "Tenable asset ID; empty when the asset has none (use key, hostname or ip)."
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "fqdn": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "description": "Web application URL for WAS assets, else empty."
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner name; empty when owner_source is unassigned."
+          },
+          "owner_source": {
+            "type": "string",
+            "pattern": "^(owner-file|unassigned|tag:.+)$"
+          },
+          "bucket": {
+            "enum": [
+              "FIRST",
+              "NEXT",
+              "SOON"
+            ]
+          },
+          "rank": {
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "compromise_note": {
+            "type": "string",
+            "description": "Non-empty only when flags.possible_compromise: assume compromise and check for exploitation since the exploitation date."
+          },
+          "action": {
+            "enum": [
+              "patch",
+              "vendor-update",
+              "upgrade-stream",
+              "isolate-or-upgrade"
+            ]
+          },
+          "fix_target": {
+            "type": "string",
+            "description": "Package version plus advisory ID, an upstream release, or the CVE IDs when a Cloud finding names no advisory; may be empty."
+          },
+          "php_installs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/install"
+            }
+          },
+          "flags": {
+            "$ref": "#/$defs/flags"
+          },
+          "interim_mitigations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verification": {
+            "$ref": "#/$defs/verification"
+          },
+          "context": {
+            "$ref": "#/$defs/context"
+          }
+        },
+        "description": "A confirmed-vulnerable asset, ranked 1..n across FIRST, NEXT, SOON. At least one install has an actionable verdict; action and fix_target come from the worst of them."
+      }
+    },
+    "verify_first": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "asset_id",
+          "hostname",
+          "fqdn",
+          "ip",
+          "url",
+          "owner",
+          "owner_source",
+          "bucket",
+          "rank",
+          "reason",
+          "compromise_note",
+          "action",
+          "fix_target",
+          "php_installs",
+          "flags",
+          "interim_mitigations",
+          "verification",
+          "context",
+          "next_step"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The plan's identity for the asset: Tenable asset ID, else name|ip, else URL. Unique within a plan."
+          },
+          "asset_id": {
+            "type": "string",
+            "description": "Tenable asset ID; empty when the asset has none (use key, hostname or ip)."
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "fqdn": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "description": "Web application URL for WAS assets, else empty."
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner name; empty when owner_source is unassigned."
+          },
+          "owner_source": {
+            "type": "string",
+            "pattern": "^(owner-file|unassigned|tag:.+)$"
+          },
+          "bucket": {
+            "enum": [
+              "VERIFY"
+            ]
+          },
+          "rank": {
+            "type": "null"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "compromise_note": {
+            "type": "string",
+            "description": "Non-empty only when flags.possible_compromise: assume compromise and check for exploitation since the exploitation date."
+          },
+          "action": {
+            "type": "null"
+          },
+          "fix_target": {
+            "type": "null"
+          },
+          "php_installs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/install"
+            }
+          },
+          "flags": {
+            "$ref": "#/$defs/flags"
+          },
+          "interim_mitigations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verification": {
+            "$ref": "#/$defs/verification"
+          },
+          "context": {
+            "$ref": "#/$defs/context"
+          },
+          "next_step": {
+            "type": "string",
+            "description": "What to do to verify this asset."
+          }
+        },
+        "description": "An asset that could not be verified. Not ranked; no action until verified."
+      }
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "source",
+        "reference_id",
+        "url",
+        "observed",
+        "expected",
+        "fetched_at"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "tenable-plugin",
+            "vendor-feed",
+            "upstream-version",
+            "credential",
+            "absence"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "reference_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "observed": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "fetched_at": {
+          "type": "string"
+        }
+      },
+      "description": "One fact behind a verdict. Empty string where a field does not apply."
+    },
+    "install": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "package",
+        "path",
+        "port",
+        "source_plugin",
+        "verdict",
+        "verdict_label",
+        "rule",
+        "evidence"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "package": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "description": "Install path; empty for WAS and for findings with no inventory."
+        },
+        "port": {
+          "type": "string",
+          "description": "Port from the finding when exactly one is known, else empty."
+        },
+        "source_plugin": {
+          "type": "string",
+          "description": "Tenable plugin ID that reported this install, else empty."
+        },
+        "verdict": {
+          "enum": [
+            "vulnerable",
+            "no-vendor-fix",
+            "no-stream-fix",
+            "backport-only",
+            "eol",
+            "patched",
+            "likely-patched",
+            "not-affected",
+            "conflict",
+            "unverified-credentials",
+            "unverified-no-data"
+          ]
+        },
+        "verdict_label": {
+          "type": "string"
+        },
+        "rule": {
+          "type": "string",
+          "description": "Verdict rule that settled this install, e.g. 1, 3, 4a, 5, 1+3."
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        }
+      },
+      "description": "One PHP install and its own verdict."
+    },
+    "flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "internet_facing",
+        "serves_web",
+        "possible_compromise",
+        "stale",
+        "output_truncated",
+        "credential_state",
+        "unpatched_scan"
+      ],
+      "properties": {
+        "internet_facing": {
+          "type": "boolean"
+        },
+        "serves_web": {
+          "type": "boolean",
+          "description": "False only when there is no WAS finding, no HTTP service was recorded (plugin 10107 absent or unknown), the install list is complete (output_truncated false), and every PHP install is command-line (no php-fpm, php-cgi, mod_php or libphp). False ranks an actionable host Fix SOON instead of Fix NEXT."
+        },
+        "possible_compromise": {
+          "type": "boolean"
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "output_truncated": {
+          "type": "boolean"
+        },
+        "credential_state": {
+          "enum": [
+            "credentialed",
+            "not-credentialed",
+            "failed",
+            "not-applicable"
+          ]
+        },
+        "unpatched_scan": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rescan",
+        "plugins_should_stop"
+      ],
+      "properties": {
+        "rescan": {
+          "type": "boolean"
+        },
+        "plugins_should_stop": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]+$"
+          }
+        }
+      },
+      "description": "Rescan, then these plugin IDs should no longer fire."
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aes",
+        "acr",
+        "apa_level",
+        "last_seen"
+      ],
+      "properties": {
+        "aes": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "acr": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "apa_level": {
+          "enum": [
+            "critical",
+            "high",
+            null
+          ]
+        },
+        "last_seen": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

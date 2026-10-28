@@ -1,0 +1,12 @@
+[
+  {"plugin_id": 115721, "name": "PHP 8.3.x < 8.3.36", "family": "Component Vulnerability", "scan_type": "version_based", "sensor": "tenable_was", "published": "2026-10-21"},
+  {"plugin_id": 200476, "name": "PHP Scripting Language Installed (Windows)", "family": "Windows", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 216936, "name": "PHP Installed (Linux)", "family": "General", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 369483, "name": "PHP < 8.2.35 / 8.3.x < 8.3.36 / 8.4.x < 8.4.27 / 8.5.x < 8.5.12 Multiple Vulnerabilities", "family": "CGI abuses", "scan_type": "combined", "sensor": "nessus", "published": "2026-10-20"},
+  {"plugin_id": 370006, "name": "Linux Distros Unpatched Vulnerability : CVE-2026-109618", "family": "Misc.", "scan_type": "combined", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 370210, "name": "RHEL 9 : php (RHSA-2026:87151)", "family": "Red Hat Local Security Checks", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 370305, "name": "Oracle Linux 8 : php:7.4 (ELSA-2026-87080)", "family": "Oracle Linux Local Security Checks", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 370306, "name": "Oracle Linux 8 : php:8.2 (ELSA-2026-87073)", "family": "Oracle Linux Local Security Checks", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 370517, "name": "Ubuntu 22.04 LTS / 24.04 LTS : PHP vulnerabilities (USN-8948-1)", "family": "Ubuntu Local Security Checks", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"},
+  {"plugin_id": 370601, "name": "Debian dsa-6574 : php8.2 - security update", "family": "Debian Local Security Checks", "scan_type": "local", "sensor": "nessus", "published": "2026-10-22"}
+]

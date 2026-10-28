@@ -1,0 +1,6 @@
+asset_id,hostname,ip,owner
+,web01,,Web Platform
+,shop-legacy,203.0.113.10,Payments
+,shop.example.com,,Payments
+,win01,10.0.1.17,Windows Server Team
+,deb01,,

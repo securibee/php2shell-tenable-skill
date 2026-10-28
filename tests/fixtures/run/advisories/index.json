@@ -1,0 +1,65 @@
+[
+  {
+    "source": "osv",
+    "cve": "CVE-2026-109618",
+    "url": "https://api.osv.dev/v1/vulns/UBUNTU-CVE-2026-109618",
+    "fetched_at": "2026-10-27T15:26:09+00:00",
+    "status": "ok",
+    "file": "osv-UBUNTU-CVE-2026-109618.json",
+    "error": null
+  },
+  {
+    "source": "osv",
+    "cve": "CVE-2026-109619",
+    "url": "https://api.osv.dev/v1/vulns/UBUNTU-CVE-2026-109619",
+    "fetched_at": "2026-10-27T15:26:11+00:00",
+    "status": "ok",
+    "file": "osv-UBUNTU-CVE-2026-109619.json",
+    "error": null
+  },
+  {
+    "source": "osv",
+    "cve": "CVE-2026-109618",
+    "url": "https://api.osv.dev/v1/vulns/DEBIAN-CVE-2026-109618",
+    "fetched_at": "2026-10-27T15:26:10+00:00",
+    "status": "failed",
+    "file": null,
+    "error": "HTTP 429"
+  },
+  {
+    "source": "osv",
+    "cve": "",
+    "url": "https://api.osv.dev/v1/vulns/ALSA-2026:87073",
+    "fetched_at": "2026-10-27T15:26:15+00:00",
+    "status": "ok",
+    "file": "osv-ALSA-2026_87073.json",
+    "error": null
+  },
+  {
+    "source": "osv",
+    "cve": "",
+    "url": "https://api.osv.dev/v1/vulns/ALSA-2026:88720",
+    "fetched_at": "2026-10-27T15:26:15+00:00",
+    "status": "ok",
+    "file": "osv-ALSA-2026_88720.json",
+    "error": null
+  },
+  {
+    "source": "redhat",
+    "cve": "CVE-2026-109618",
+    "url": "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-109618.json",
+    "fetched_at": "2026-10-27T15:26:16+00:00",
+    "status": "ok",
+    "file": "redhat-cve-2026-109618.json",
+    "error": null
+  },
+  {
+    "source": "alpine",
+    "cve": "",
+    "url": "https://secdb.alpinelinux.org/v3.22/community.json",
+    "fetched_at": "2026-10-27T15:26:17+00:00",
+    "status": "ok",
+    "file": "alpine-v3.22.json",
+    "error": null
+  }
+]

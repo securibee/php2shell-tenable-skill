@@ -1,0 +1,19 @@
+{
+  "id": "ALSA-2026:88720",
+  "summary": "Important: php security update",
+  "modified": "2026-10-23T09:30:11Z",
+  "published": "2026-10-22T00:00:00Z",
+  "related": ["CVE-2026-109618"],
+  "references": [
+    {"type": "ADVISORY", "url": "https://access.redhat.com/errata/RHSA-2026:88720"},
+    {"type": "ADVISORY", "url": "https://errata.almalinux.org/9/ALSA-2026-88720.html"}
+  ],
+  "affected": [
+    {
+      "package": {"name": "php-cli", "ecosystem": "AlmaLinux:9", "purl": "pkg:rpm/almalinux/php-cli"},
+      "ranges": [{"type": "ECOSYSTEM",
+                  "events": [{"introduced": "0"}, {"fixed": "8.0.30-3.el9_6"}]}]
+    }
+  ],
+  "schema_version": "1.7.3"
+}

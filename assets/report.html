@@ -54,40 +54,94 @@ h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 300; line-height: 1.15; mar
 .meta dt { font-size: 10px; color: var(--text-secondary); }
 .meta dd { margin: 2px 0 0; font-weight: 500; font-variant-numeric: tabular-nums; }
 
+/* Banner: the headline sentences, accent keyline. */
+.banner { margin: 0 28px 24px; padding: 16px 20px; background: var(--bg-secondary); border-left: 3px solid var(--accent-primary); }
+.banner p { margin: 0; font-size: 16px; font-weight: 400; }
+.banner p + p { margin-top: 6px; }
+.banner p:first-child { font-weight: 500; }
+
 /* Status tiles: notched cards, top keyline in the status colour. */
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; padding: 0 28px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; padding: 0 28px; }
 .tile { background: var(--bg-secondary); border-top: 3px solid var(--c); padding: 14px 16px; }
 .tile b { display: block; font-size: 32px; font-weight: 300; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .tile span { font-size: 10px; color: var(--text-secondary); }
 
-/* Mitigations: the HexaCta panel, iris watermark. */
-.panel { position: relative; overflow: hidden; margin: 24px 28px; padding: 24px; background: var(--bg-secondary);
+/* Vulnerability context: the HexaCta panel, iris watermark. */
+.panel { position: relative; overflow: hidden; margin: 0 28px 24px; padding: 24px; background: var(--bg-secondary);
   border: 1px solid var(--bg-tertiary); border-left: 2px solid var(--accent-secondary); }
 .panel .iris { position: absolute; right: -16px; top: 50%; transform: translateY(-50%); width: 200px; opacity: 0.06; pointer-events: none; }
 .panel > * { position: relative; }
 .panel .eyebrow { color: var(--accent-secondary); }
-.panel h2 { font-size: 18px; font-weight: 400; margin: 0 0 8px; }
+.panel h2 { font-size: 18px; font-weight: 400; margin: 0 0 12px; }
+.panel h3 { font-size: 10px; color: var(--text-secondary); margin: 0 0 4px; }
 .panel ul { margin: 0; padding-left: 18px; font-weight: 300; color: rgba(255, 255, 255, 0.75); max-width: 90ch; }
 .panel li { margin-bottom: 4px; }
 .panel li::marker { color: var(--accent-secondary); }
+.panel ul.fixed { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 16px; }
+table.counts .sub { display: inline; margin-left: 6px; }
+.context-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 32px; }
+.panel .faq { margin: 12px 0 0; font-size: 13px; color: var(--text-secondary); }
 
-/* Findings table. */
-.findings { padding: 0 28px; }
-.findings h2 { font-size: 18px; font-weight: 400; margin: 0 0 12px; }
-.findings h2 span { color: var(--text-secondary); font-weight: 300; }
+/* Sections and tables. */
+.block { padding: 0 28px; margin-top: 32px; }
+.block h2 { font-size: 18px; font-weight: 400; margin: 0 0 6px; }
+.block > p, .block .intro { margin: 0 0 12px; color: rgba(255, 255, 255, 0.75); font-weight: 300; max-width: 100ch; }
+a { color: var(--accent-primary); overflow-wrap: anywhere; }
 .table-wrap { overflow-x: auto; border: 1px solid var(--bg-tertiary); }
 table { border-collapse: collapse; width: 100%; font-size: 12px; font-variant-numeric: tabular-nums; }
-th { position: sticky; top: 0; background: var(--bg-secondary); color: var(--text-secondary); text-align: left;
+th { background: var(--bg-secondary); color: var(--text-secondary); text-align: left;
   font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 10px;
-  border-bottom: 1px solid var(--bg-tertiary); cursor: pointer; white-space: nowrap; }
-th:hover { color: var(--text-primary); }
+  border-bottom: 1px solid var(--bg-tertiary); white-space: nowrap; }
 td { padding: 8px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); vertical-align: top; }
-tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
 td.nowrap { white-space: nowrap; }
-td.name { min-width: 220px; }
+td.wrap, td.wrap * { overflow-wrap: anywhere; }
+td.rank { white-space: nowrap; font-weight: 500; }
+tr.row { cursor: pointer; }
+tr.row:hover, tr.row:focus-visible { background: rgba(255, 255, 255, 0.04); }
+tr.row:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: -2px; }
+.toggle { display: inline-block; width: 0; height: 0; margin-right: 8px; vertical-align: middle;
+  border-left: 5px solid var(--text-secondary); border-top: 4px solid transparent; border-bottom: 4px solid transparent; transition: transform 150ms; }
+tr.row[aria-expanded="true"] .toggle { transform: rotate(90deg); }
+tr.detail { display: none; }
+tr.detail.open { display: table-row; }
+.print-detail, .print-only { display: none; }
+tr.detail > td { background: rgba(255, 255, 255, 0.025); padding: 4px 16px 18px 28px; border-bottom: 1px solid var(--bg-tertiary); }
+td.asset { min-width: 150px; }
+td.reason { min-width: 140px; }
+td.action { min-width: 120px; }
+td.wrap { min-width: 100px; }
+.host { font-weight: 500; overflow-wrap: break-word; }
+.sub { display: block; color: var(--text-secondary); font-size: 11px; overflow-wrap: break-word; }
+.muted { color: var(--text-secondary); }
 .status { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-weight: 500; }
 .swatch { width: 8px; height: 8px; flex: none; background: var(--c); box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.4); }
+.chip { display: inline-block; margin: 0 4px 4px 0; padding: 1px 6px; font-size: 10px; font-weight: 500; white-space: nowrap;
+  border: 1px solid var(--c); color: var(--text-primary); }
 .empty { padding: 24px 10px; color: var(--text-secondary); }
+
+/* Detail view. */
+.detail-body { font-size: 12px; overflow-wrap: anywhere; }
+.detail-body h4 { font-size: 10px; color: var(--text-secondary); margin: 14px 0 6px; }
+.detail-body ul { margin: 0; padding-left: 18px; }
+.note { margin: 10px 0 0; padding: 6px 10px; border-left: 2px solid var(--accent-primary); background: rgba(231, 255, 0, 0.05); }
+.note.alert { border-color: #DD4B50; background: rgba(221, 75, 80, 0.1); font-weight: 500; }
+.note.action { border-color: var(--accent-secondary); background: rgba(255, 136, 55, 0.08); font-weight: 500; }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px 16px; margin: 12px 0 0; }
+.facts dt { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.facts dd { margin: 0; }
+.install { margin-top: 8px; padding: 8px 10px; border: 1px solid var(--bg-tertiary); }
+.install-head { margin: 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.install-meta { margin: 4px 0 6px; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.install-meta em { font-style: normal; color: var(--text-secondary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+table.evidence { font-size: 11px; }
+table.evidence th { padding: 5px 8px; font-size: 9px; }
+table.evidence td { padding: 5px 8px; }
+.detail-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 24px; }
+.detail-cols p { margin: 0; }
+.auth-group { margin: 12px 0; padding: 10px 14px; background: var(--bg-secondary); border-left: 2px solid var(--text-secondary); }
+.auth-group h3 { font-size: 14px; font-weight: 500; margin: 0 0 4px; }
+.auth-group p { margin: 0 0 4px; }
+.hosts { margin: 0; padding-left: 18px; color: rgba(255, 255, 255, 0.75); }
 
 /* Footer: the datasheet's Hexa bar, about block and URL bar. */
 .foot { margin-top: 32px; padding: 18px 28px 14px; background: var(--bg-secondary); border-top: 2px solid var(--accent-primary); }
@@ -106,49 +160,110 @@ td.name { min-width: 220px; }
 .lockup-dark { display: none !important; }
 
 @media (max-width: 640px) {
-  .band, .hero, .tiles, .findings, .foot { padding-left: 16px; padding-right: 16px; }
-  .panel { margin-left: 16px; margin-right: 16px; }
+  .band, .hero, .tiles, .block, .foot { padding-left: 16px; padding-right: 16px; }
+  .panel, .banner { margin-left: 16px; margin-right: 16px; }
   .powered { border-left: none; padding-left: 0; }
+  .context-cols { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Tables become stacked cards, so the page never scrolls sideways. */
+  .table-wrap { border: none; }
+  table.cards, table.cards > tbody, table.cards > tbody > tr, table.cards > tbody > tr > td { display: block; width: 100%; }
+  table.cards > thead { display: none; }
+  table.cards > tbody > tr { border: 1px solid var(--bg-tertiary); margin-bottom: 8px; padding: 6px 0; }
+  table.cards > tbody > tr > td { border: none; padding: 3px 12px; white-space: normal; overflow-wrap: anywhere; }
+  table.cards > tbody > tr > td[data-label]::before { content: attr(data-label); display: block; font-size: 9px;
+    color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+  table.cards > tbody > tr.detail { display: none; margin-top: -9px; border-top: none; }
+  table.cards > tbody > tr.detail.open { display: block; }
+  tr.detail > td { padding: 4px 12px 12px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  table.counts th, table.counts td { padding: 6px; white-space: normal; }
+  table.evidence > tbody > tr { margin-bottom: 6px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Print: white sheet with dark header band, as print.css does for the solution brief. */
+/* Print: white sheet with dark header band, as print.css does for the solution brief.
+   Page 1 is the summary; the action plan starts on page 2 with every detail row expanded. */
 @media print {
   @page { size: letter landscape; margin: 12mm 0; }
   @page :first { margin-top: 0; }
-  html, body { background: #FFFFFF !important; color: #1E2426 !important; font-size: 9pt; line-height: 1.45; }
+  html, body { background: #FFFFFF !important; color: #1E2426 !important; font-size: 9pt; line-height: 1.4; }
   .sheet { max-width: none; }
   .print-btn { display: none !important; }
-  .band { padding: 20pt 28pt; border-bottom: none; }
-  .band img { height: 30pt; }
-  .hero { padding: 22pt 28pt 0; }
+  .band { padding: 16pt 28pt; border-bottom: none; }
+  .band img { height: 26pt; }
+  .hero { padding: 12pt 28pt 0; }
   .eyebrow, .panel .eyebrow { color: #1E2426; opacity: 0.6; font-size: 7pt; letter-spacing: 0.08em; }
-  h1 { font-size: 24pt; color: #1E2426; }
-  .lede { font-size: 10pt; color: #1E2426; opacity: 0.75; }
-  .meta { border-color: rgba(30, 36, 38, 0.1); margin: 12pt 0 14pt; padding: 8pt 0; }
+  h1 { font-size: 20pt; color: #1E2426; }
+  .lede { font-size: 9pt; color: #1E2426; opacity: 0.75; }
+  .lede { max-width: none; }
+  .lede::after { margin-top: 6pt; }
+  .meta { border-color: rgba(30, 36, 38, 0.1); margin: 6pt 0 8pt; padding: 4pt 0; }
   .meta dt { color: #1E2426; opacity: 0.45; font-size: 6pt; letter-spacing: 0.08em; }
   .meta dd { font-size: 9pt; }
-  .tiles { padding: 0 28pt; gap: 8pt; grid-template-columns: repeat(6, 1fr); }
-  .tile { background: #f3f3f3; border-top: 2.5pt solid var(--c); padding: 8pt 10pt; }
-  .tile b { font-size: 20pt; color: #1E2426; }
+  a { color: #1E2426; }
+  .banner { margin: 0 28pt 10pt; padding: 8pt 12pt; background: #f8f8f8; border-left: 2.5pt solid #1E2426; break-inside: avoid; }
+  .banner p { font-size: 10pt; color: #1E2426; }
+  .banner p + p { margin-top: 2pt; }
+  .tiles { padding: 0 28pt; gap: 8pt; grid-template-columns: repeat(7, 1fr); }
+  .tile { background: #f3f3f3; border-top: 2.5pt solid var(--c); padding: 6pt 10pt; }
+  .tile b { font-size: 18pt; color: #1E2426; }
   .tile span { color: rgba(30, 36, 38, 0.6); font-size: 6.5pt; }
-  .panel { margin: 14pt 28pt; padding: 12pt 14pt; background: #f8f8f8; border: 0.5pt solid rgba(30, 36, 38, 0.1);
+  .panel { margin: 0 28pt 10pt; padding: 10pt 14pt; background: #f8f8f8; border: 0.5pt solid rgba(30, 36, 38, 0.1);
     border-left: 2pt solid var(--accent-secondary); break-inside: avoid; }
   .panel .iris { opacity: 0.08; width: 120pt; }
-  .panel h2 { font-size: 10pt; font-weight: 500; color: #1E2426; }
-  .panel ul { color: #1E2426; font-size: 8.5pt; }
+  .panel h2 { font-size: 10pt; font-weight: 500; color: #1E2426; margin-bottom: 4pt; }
+  .panel h3 { color: rgba(30, 36, 38, 0.6); font-size: 6.5pt; }
+  .panel ul { color: #1E2426; font-size: 8pt; }
+  .panel li { margin-bottom: 1pt; }
+  .panel .faq { color: rgba(30, 36, 38, 0.7); font-size: 7.5pt; margin-top: 6pt; }
   code { font-size: 7.5pt; background: rgba(30, 36, 38, 0.06); }
-  .findings { padding: 0 28pt; break-before: page; }
-  .findings h2 { font-size: 10pt; font-weight: 500; color: #1E2426; }
-  .findings h2 span { color: rgba(30, 36, 38, 0.5); }
+  .block { padding: 0 28pt; margin-top: 14pt; }
+  .block.owners { margin-top: 10pt; }
+  table.counts td { padding: 2pt 6pt; }
+  .block.plan { break-before: page; margin-top: 0; }
+  .block h2 { font-size: 10pt; font-weight: 500; color: #1E2426; }
+  .block > p, .block .intro { color: rgba(30, 36, 38, 0.75); font-size: 8pt; }
   .table-wrap { overflow: visible; border: none; }
   table { font-size: 7.5pt; }
   thead { display: table-header-group; }
-  th { position: static; background: #1E2426 !important; color: #FFFFFF; font-size: 6.5pt; padding: 5pt 6pt; border: none; }
-  td { color: #1E2426; padding: 4pt 6pt; border-bottom: 0.5pt solid rgba(30, 36, 38, 0.1); }
-  tr { break-inside: avoid; }
-  td:not(.nowrap):not(.name) { overflow-wrap: anywhere; }
+  th { background: #1E2426 !important; color: #FFFFFF; font-size: 6.5pt; padding: 4pt 6pt; border: none; }
+  td { color: #1E2426; padding: 3pt 6pt; border-bottom: 0.5pt solid rgba(30, 36, 38, 0.1); }
+  td { overflow-wrap: break-word; }
+  td.wrap, .detail-body { overflow-wrap: anywhere; }
+  td.asset { min-width: 80pt; }
+  td.reason, td.action, td.wrap { min-width: 0; }
+  td.action { width: 11%; }
+  td.nowrap .status { white-space: nowrap; }
+  .detail-body h4 { break-after: avoid; }
+  tr.row { break-inside: avoid; break-after: avoid; }
+  .block.plan tr.row { break-after: auto; }  /* no detail row follows; chaining pushes the table */
+  tr.detail { display: table-row; }
+  /* Spec: the ranked table first, then the per-asset detail; Verify first stays expanded. */
+  .block.plan tr.detail, .screen-only { display: none; }
+  .print-only { display: inline; }
+  td.reason { width: 12%; }
+  .print-detail { display: block; break-before: page; margin-top: 0; }
+  .print-item { margin-top: 10pt; padding-top: 6pt; border-top: 1pt solid #1E2426; }
+  .print-item:first-of-type { margin-top: 4pt; }
+  .detail-head { font-size: 9.5pt; font-weight: 500; color: #1E2426; margin: 0; break-after: avoid; }
+  tr.detail > td { background: #fafafa; padding: 2pt 8pt 8pt 16pt; border-bottom: 0.75pt solid rgba(30, 36, 38, 0.3); }
+  .toggle { display: none; }
+  .sub, .muted, .empty { color: rgba(30, 36, 38, 0.55); }
+  .chip { color: #1E2426; font-size: 6.5pt; }
   .status { white-space: normal; align-items: flex-start; }
   .swatch { margin-top: 2pt; }
+  .detail-body { font-size: 7.5pt; }
+  .detail-body h4 { color: rgba(30, 36, 38, 0.6); font-size: 6.5pt; margin: 6pt 0 3pt; }
+  .note { margin-top: 4pt; padding: 3pt 6pt; color: #1E2426; }
+  .facts { grid-template-columns: repeat(6, 1fr); gap: 3pt 10pt; margin-top: 6pt; }
+  .facts dt { color: rgba(30, 36, 38, 0.55); font-size: 6pt; }
+  .install { border-color: rgba(30, 36, 38, 0.15); padding: 4pt 6pt; margin-top: 4pt; break-inside: avoid; }
+  .install-meta em { color: rgba(30, 36, 38, 0.55); font-size: 6pt; }
+  table.evidence th { font-size: 6pt; padding: 2pt 4pt; background: #44494B !important; }
+  table.evidence td { font-size: 7pt; padding: 2pt 4pt; }
+  .auth-group { background: #f8f8f8; border-left-color: rgba(30, 36, 38, 0.4); break-inside: avoid; }
+  .auth-group h3 { font-size: 9pt; color: #1E2426; }
+  .hosts { color: #1E2426; }
   .foot { margin-top: 18pt; padding: 14pt 28pt 12pt; background: linear-gradient(180deg, #f8f8f8 0%, #f0f0f0 100%) !important;
     color: #1E2426; break-inside: avoid; }
   .foot-hexa { border-color: rgba(30, 36, 38, 0.1); }
@@ -168,7 +283,7 @@ td.name { min-width: 220px; }
   <header class="band">
     <img src="data:image/svg+xml;base64,$lockup_white" alt="Tenable">
     <div class="band-right">
-      <span class="type-tag">Exposure Report</span>
+      <span class="type-tag">Action Plan</span>
       <span class="powered caption">Powered by Hexa AI, Part of Tenable One</span>
       <button type="button" class="print-btn" onclick="window.print()" aria-label="Save as PDF">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -178,49 +293,84 @@ td.name { min-width: 220px; }
   </header>
 
   <section class="hero">
-    <p class="eyebrow caption">Vulnerability of Concern · CVE-2026-109618 · CVE-2026-109619</p>
-    <h1>PHP2Shell exposure report</h1>
-    <p class="lede">Pre-authentication remote code execution in PHP (CVSSv4 9.2), with exploitation already seen in the wild. These findings come from Tenable Vulnerability Management and Web App Scanning through the Tenable Hexa AI MCP.</p>
+    <p class="eyebrow caption">Vulnerability of Concern · $cves</p>
+    <h1>PHP2Shell action plan</h1>
+    <p class="lede">Every PHP install Tenable reported, checked against Tenable plugins and vendor advisory feeds, then ranked by internet exposure. Data from Tenable Vulnerability Management, Web App Scanning and Cloud Security through the Tenable Hexa AI MCP.</p>
     <dl class="meta">
       <div><dt class="caption">Generated</dt><dd>$generated</dd></div>
-      <div><dt class="caption">Assets</dt><dd>$asset_count</dd></div>
-      <div><dt class="caption">Findings</dt><dd>$row_count</dd></div>
-      <div><dt class="caption">Plugins with hits</dt><dd>$plugins</dd></div>
+      <div><dt class="caption">PHP hosts</dt><dd>$asset_count</dd></div>
+      <div><dt class="caption">PHP installs</dt><dd>$install_count</dd></div>
+      <div><dt class="caption">Skill version</dt><dd>$skill_version</dd></div>
     </dl>
   </section>
 
-  <section class="tiles" aria-label="Assets by status">$tiles</section>
+  <section class="banner" aria-label="Summary">$banner</section>
 
   <section class="panel">
     <img class="iris" src="data:image/png;base64,$iris" alt="" aria-hidden="true">
-    <p class="eyebrow caption">Interim mitigations</p>
-    <h2>Patch to 8.5.12, 8.4.27, 8.3.36 or 8.2.35. These settings only reduce exposure until then.</h2>
-    <ul>
-      <li>CVE-2026-109618: set <code>memory_limit=-1</code> so applications cannot override it.</li>
-      <li>CVE-2026-109619: set <code>session.upload_progress.enabled=0</code>, and on PHP 8.5 also set <code>fatal_error_backtraces=0</code>.</li>
-      <li>Restart every PHP worker after changing settings. mod_php is the riskiest deployment, because an unauthenticated request reaches the flaw before any application code runs.</li>
-      <li>Status is based on the PHP version, so distro packages with backported fixes can show as vulnerable. Check those against the vendor advisory.</li>
-    </ul>
+    $context
   </section>
 
-  <section class="findings">
-    <h2>Findings <span>· $row_count rows</span></h2>
+  <section class="tiles" aria-label="Hosts by bucket and verdict">$tiles</section>
+
+  <section class="block owners">
+    <h2>Hosts by owner</h2>
     <div class="table-wrap">
-      <table id="t">
-        <thead><tr>$thead</tr></thead>
-        <tbody>$tbody</tbody>
+      <table class="counts">
+        <thead><tr><th>Owner</th><th>Fix FIRST</th><th>Fix NEXT</th><th>Fix SOON</th><th>Verify first</th><th>Total</th></tr></thead>
+        <tbody>$owner_rows</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block plan" id="plan">
+    <h2>Action plan</h2>
+    <p class="intro">Confirmed-vulnerable hosts in rank order: internet-facing first, then attack path, Asset Criticality Rating and Asset Exposure Score. <span class="screen-only">Select a row for every PHP install, its evidence and how to verify the fix.</span><span class="print-only">Every PHP install, its evidence and how to verify the fix follow the table, in rank order.</span></p>
+    <div class="table-wrap">
+      <table class="cards">
+        <thead><tr><th>Rank</th><th>Bucket</th><th>Asset</th><th>Owner</th><th>Action</th><th>Fix target</th><th>Reason</th><th>Flags</th><th>Credentials</th><th>ACR / AES / Attack path</th></tr></thead>
+        <tbody>$plan_rows</tbody>
+      </table>
+    </div>
+  </section>
+
+  $plan_details
+
+  <section class="block verify" id="verify">
+    <h2>Verify first</h2>
+    <p class="intro">Hosts the evidence could not settle. They are not ranked against confirmed hosts; take the next step, then rescan.</p>
+    <div class="table-wrap">
+      <table class="cards">
+        <thead><tr><th>Asset</th><th>Owner</th><th>Reason</th><th>Next step</th><th>Credentials</th><th>ACR / AES / Attack path</th></tr></thead>
+        <tbody>$verify_rows</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block auth" id="credentials">
+    <h2>Credential follow-up</h2>
+    $auth_section
+  </section>
+
+  <section class="block sources" id="sources">
+    <h2>Data sources</h2>
+    <p class="intro">A failed or missing feed never marks an install Patched; those installs are judged on the remaining evidence.</p>
+    <div class="table-wrap">
+      <table class="cards">
+        <thead><tr><th>Source</th><th>CVE</th><th>URL</th><th>Fetched</th><th>Status</th></tr></thead>
+        <tbody>$sources_rows</tbody>
       </table>
     </div>
   </section>
 
   <footer class="foot">
     <div class="foot-hexa">
-      <p><b>PHP2Shell exposure report</b>: data from the Tenable Hexa AI MCP, part of Tenable One</p>
+      <p><b>PHP2Shell action plan</b>: data from the Tenable Hexa AI MCP, part of Tenable One</p>
       <a class="cta" href="$blog">Read the Tenable Research FAQ</a>
     </div>
     <div class="foot-about">
       <h3 class="caption">About this report</h3>
-      <p>Built from the PHP2Shell plugins listed by Tenable Research: Web App Scanning 115719–115722 and the Nessus PHP detection plugins 48243, 58987, 200476 and 216936. Tenable is still publishing plugins, so check the FAQ for new IDs.</p>
+      <p>Each PHP install gets one verdict from the first rule its evidence settles: Tenable plugins, saved vendor advisory feeds and the fixed releases in the Tenable Research FAQ. Patched needs positive evidence. The same plan is in action-plan.json for agents and report.csv for spreadsheets. Tenable is still publishing plugins, so check the FAQ for new IDs.</p>
     </div>
     <div class="foot-bar">
       <img class="lockup-white-foot" src="data:image/svg+xml;base64,$lockup_white" alt="Tenable">
@@ -230,14 +380,15 @@ td.name { min-width: 220px; }
   </footer>
 </div>
 <script>
-document.querySelectorAll("#t th").forEach(function (th, i) {
-  th.addEventListener("click", function () {
-    var tb = th.closest("table").tBodies[0], rows = Array.from(tb.rows);
-    var dir = th.dataset.dir = th.dataset.dir === "1" ? "-1" : "1";
-    rows.sort(function (a, b) {
-      return a.cells[i].innerText.localeCompare(b.cells[i].innerText, undefined, { numeric: true }) * dir;
-    });
-    rows.forEach(function (r) { tb.appendChild(r); });
+document.querySelectorAll("tr.row").forEach(function (row) {
+  var detail = row.nextElementSibling;
+  function toggle() {
+    var open = detail.classList.toggle("open");
+    row.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  row.addEventListener("click", function (e) { if (!e.target.closest("a")) toggle(); });
+  row.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
   });
 });
 </script>

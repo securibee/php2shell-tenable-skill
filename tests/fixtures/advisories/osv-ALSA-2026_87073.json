@@ -1,0 +1,29 @@
+{
+  "id": "ALSA-2026:87073",
+  "summary": "Important: php:8.2 security update",
+  "modified": "2026-10-23T09:26:32Z",
+  "published": "2026-10-21T00:00:00Z",
+  "related": ["CVE-2026-109618", "CVE-2026-109619"],
+  "references": [
+    {"type": "ADVISORY", "url": "https://access.redhat.com/errata/RHSA-2026:87073"},
+    {"type": "ADVISORY", "url": "https://errata.almalinux.org/8/ALSA-2026-87073.html"}
+  ],
+  "affected": [
+    {
+      "package": {"name": "php", "ecosystem": "AlmaLinux:8", "purl": "pkg:rpm/almalinux/php"},
+      "ranges": [{"type": "ECOSYSTEM",
+                  "events": [{"introduced": "0"}, {"fixed": "8.2.35-1.module_el8.10.0+4323+fc907035"}]}]
+    },
+    {
+      "package": {"name": "php-cli", "ecosystem": "AlmaLinux:8", "purl": "pkg:rpm/almalinux/php-cli"},
+      "ranges": [{"type": "ECOSYSTEM",
+                  "events": [{"introduced": "0"}, {"fixed": "8.2.35-1.module_el8.10.0+4323+fc907035"}]}]
+    },
+    {
+      "package": {"name": "php-pecl-apcu", "ecosystem": "AlmaLinux:8", "purl": "pkg:rpm/almalinux/php-pecl-apcu"},
+      "ranges": [{"type": "ECOSYSTEM",
+                  "events": [{"introduced": "0"}, {"fixed": "5.1.23-1.module_el8.10.0+3796+30ed3ef7"}]}]
+    }
+  ],
+  "schema_version": "1.7.3"
+}

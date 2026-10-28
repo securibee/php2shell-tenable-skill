@@ -1,0 +1,19 @@
+{
+  "apkurl": "{{urlprefix}}/{{distroversion}}/{{reponame}}/{{arch}}/{{pkg.name}}-{{pkg.ver}}.apk",
+  "archs": ["aarch64", "x86_64"],
+  "reponame": "community",
+  "urlprefix": "https://dl-cdn.alpinelinux.org/alpine",
+  "distroversion": "v3.22",
+  "packages": [
+    {"pkg": {"name": "php83", "secfixes": {
+      "8.3.29-r0": ["CVE-2025-14177", "CVE-2025-14178"],
+      "8.3.36-r0": ["CVE-2026-91765",
+                    "CVE-2026-109618, GHSA-w8hw-w9fx-j79w",
+                    "CVE-2026-109619, GHSA-0000-0000-0000"]}}},
+    {"pkg": {"name": "php84", "secfixes": {
+      "8.4.27-r0": ["CVE-2026-109618, GHSA-w8hw-w9fx-j79w",
+                    "CVE-2026-109619, GHSA-7875-c8px-7q5f"]}}},
+    {"pkg": {"name": "phpmyadmin", "secfixes": {
+      "5.1.2-r0": ["CVE-2022-23807"]}}}
+  ]
+}
